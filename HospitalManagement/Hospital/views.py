@@ -67,3 +67,6 @@ def president_doctor_addition(request):
     
     return render(request, "President/president_doctor_addition.html")
 
+def home(request):
+
+    return HttpResponse("This is home page")
