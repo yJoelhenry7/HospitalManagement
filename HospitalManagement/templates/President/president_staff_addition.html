@@ -8,9 +8,7 @@
     <center>
         <form action="" method="post">
             {% csrf_token %}
-            <label for="">Username:</label><br/>
-            <input type="text" name="userName" id="userName" placeholder="Enter the username" required><br>
-
+            
             <label for="">First Name:</label><br/>
             <input type="text" name="firstName" id="firstName" placeholder="Enter the first name"><br>
             
@@ -19,13 +17,16 @@
             
             <label for="">Email:</label><br>
             <input type="email" name="email" id="email" placeholder="Enter your email" required><br>
-
+            
             <label for="">Number:</label><br>
             <input type="number" name="mobileNumber" id="mobileNumber" placeholder="Enter your mobile number" required><br>
 
             <label for="">Aadhar:</label><br>
             <input type="number" name="aadharNumber" id="aadharNumber" placeholder="Enter your aadhar number" required><br>
 
+            <label for="">Role:</label><br/>
+            <input type="text" name="role" id="role" placeholder="Enter the role"><br>
+            
             <label for="">City:</label><br>
             <input type="text" name="city" id="city" placeholder="Enter your city" required><br>
 

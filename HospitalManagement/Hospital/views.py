@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from .models import *
 
 # Create your views here.
+
 
 def signin(request):
 
@@ -12,6 +14,8 @@ def signin(request):
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
+
+                
 
         if (user is not None):
             
@@ -41,32 +45,69 @@ def president_patient_addition(request):
     
     return render(request,'President/president_patient_addition.html')
 
-def president_doctor_addition(request):
+def president_staff_addition(request):
+    roles = {
+        'Doctor': 1,
+        'Receptionist': 2
+    }
     
     if (request.method == "POST"):
-        userName = request.POST['userName']
         firstName = request.POST['firstName']
         lastName = request.POST['lastName']
         email = request.POST['email']
         mobilenumber = request.POST['mobileNumber']
         aadharnumber = request.POST['aadharNumber']
         city = request.POST['city']
+        role = request.POST['role']
         password = aadharnumber[:4]+mobilenumber[-4:]
-       
-
+        userName = lastName+aadharnumber[:2]+mobilenumber[-2:]
+        
+        staff = Staff(
+                name=(firstName+" "+lastName),
+                firstName=(firstName), 
+                lastName=(lastName), 
+                email=email, 
+                mobileNumber=mobilenumber, 
+                aadharNumber=aadharnumber,
+                city = city,
+                role = role
+            )
+        staff.save()
+        
         user = User.objects.create_user(userName, email, password)
-        user.first_name = firstName
+        user.first_name = firstName+str(roles.get(role))
         user.last_name = lastName
-
 
 
         user.save()
 
-        return render(request, 'President/president_doctor_view.html', {'firstName': firstName})
+        return render(request, 'President/president_doctor_view.html')
     
     
-    return render(request, "President/president_doctor_addition.html")
+    return render(request, "President/president_staff_addition.html")
 
 def home(request):
 
+    if (request.method=='POST'):
+        userName = request.POST['userName']
+        password = request.POST['password']
+
+        user = authenticate(username=userName, password=password)
+
+        if (user.first_name[-1]=="1"):
+            return HttpResponse("<h1>Doctor</h1>")
+        elif (user.first_name[-1]=="2"):
+            return HttpResponse("<h1>Receptionist</h1>")
+
+        if (user is not None):
+            login(request, user)
+            return render(request,"Doctor/doctor_index.html")
+
+        else:
+            context = {"error":"Invalid username or password"}
+            return render(request, 'home.html', context)
+
     return render(request, "home.html")
+
+def doctor_index(request):
+    return render(request,"Doctor/doctor_index.html")
