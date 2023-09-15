@@ -69,4 +69,4 @@ def president_doctor_addition(request):
 
 def home(request):
 
-    return HttpResponse("This is home page")
+    return render(request, "home.html")
