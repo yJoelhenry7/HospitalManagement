@@ -1,12 +1,52 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+	<link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    <h1>Hello</h1>
+<h1 class="black">WELCOME !</h1>
+<h2 class="black">Doctor & Receptionist Login</h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#" method="post">
+			<h1 style="color:black;">Receptionist Sign In</h1>
+			<span>Please Enter the Details</span>
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#" method="post">
+			<h1 style="color: black;">Doctor's Sign In</h1>
+			<span>Please Enter the Details</span>
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+		
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Hi, There!👨‍💼</h1>
+				<p>Login and update the Patients Data</p>
+                <h5>Not a Employee?</h5>
+				<button class="ghost" id="signIn">Doctor Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Doctor! 🧑‍⚕️</h1>
+				<p>Login and Check your Patients Status</p>
+                <h5>Not a Doctor?</h5>
+				<button class="ghost" id="signUp">Receptionist Sign In</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>
