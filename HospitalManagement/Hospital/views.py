@@ -36,7 +36,8 @@ def index(request):
     return render(request, 'President/president_index.html')
 
 def president_doctor_view(request):
-    return render(request, 'President/president_doctor_view.html')
+    staff = Staff.objects.all()
+    return render(request, 'President/president_doctor_view.html',{'staff': staff})
 
 def president_patient_view(request):
     return render(request, 'President/president_patient_view.html')
