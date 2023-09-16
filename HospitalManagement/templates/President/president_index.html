@@ -1,16 +1,28 @@
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>President</title>
-</head>
-<body>
-    
-    <center>
-        
-        <a href="/presidentDoctorView" >Doctor</a>
-        
-        <a href="/presidentPatientView">Patient</a>
-    </center>
-</body>
+    <link rel="stylesheet" href="{% static 'css/president_index.css' %}" />
+  </head>
+  <body>
+    <img src="{% static 'images/doctor2.png' %}" alt="" class="doctor-image"/>
+    <div>
+        <h1 style="display: flex; margin-left: 10%;margin-top: 20%;">Welcome &nbsp; <span style="color: red;"> Cheif!</span></h1>
+        <h3 style="margin-bottom: 30%; margin-left: 10%; ">what do you want to check Today ?</h3>
+        <div class="container">
+            <a href="/presidentDoctorView"> 
+            <div class="container-item doctor-container">
+               <h1>Doctor</h1>
+            </div>
+        </a>
+        <a href="/presidentPatientView"> 
+            <div class="container-item patient-container">
+                <h1>Patient</h1>
+            </div>
+        </a>
+        </div>
+    </div>
+  </body>
 </html>
