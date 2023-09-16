@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins","sans-serif";
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('https://img.freepik.com/free-vector/national-doctor-s-day-hand-drawn-background_23-2149438164.jpg?w=1060&t=st=1694806426~exp=1694807026~hmac=6376b595b805c149273e5e85b00d1caf457a5115c41f25eee5608ac071fe0deb') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 2rem;
+    border: 4px solid rgb(129, 180, 203);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    padding: 10px;
+}
+.container-item{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(129, 180, 203);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.doctor-image{
+    position: absolute;
+    left: 274;
+}
+.doctor-container{
+    background: url('/static/images/doctorAvator.png');
+    background-repeat: no-repeat;
+    object-fit: fill;
+    background-size: 170px 164px;
+    background-position: center;
+    color: rgba(0, 0, 0, .4);
+}
+.patient-container{
+    background: url('/static/images/patientAvator.png');
+    background-repeat: no-repeat;
+    object-fit: cover;
+    background-size: cover;
+    color: rgba(0, 0, 0, .4);
+}
