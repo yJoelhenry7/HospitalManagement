@@ -1,9 +1,9 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import *
-
 # Create your views here.
 
 
@@ -14,8 +14,6 @@ def signin(request):
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
-
-                
 
         if (user is not None):
             
@@ -87,28 +85,42 @@ def president_staff_addition(request):
     
     return render(request, "President/president_staff_addition.html")
 
-def home(request):
 
-    if (request.method=='POST'):
+def home(request):
+    if (request.method =='POST'):
         userName = request.POST['userName']
         password = request.POST['password']
 
         user = authenticate(username=userName, password=password)
+        context = {"error": "Invalid username or password"}
+        if 'doctor_form_signin' in request.POST:
 
-        if (user.first_name[-1]=="1"):
-            return HttpResponse("<h1>Doctor</h1>")
-        elif (user.first_name[-1]=="2"):
-            return HttpResponse("<h1>Receptionist</h1>")
+            if (user is not None):
+                if (user.first_name[-1]=='1'):
+                    login(request, user)
+                    return render(request,"Doctor/doctor_index.html")
+                else:
+                    context = {"error": "Invalid role"}
+                    messages.info(request, 'Invalid role!')
+                    return render(request, "home.html", context)
+            else:
+                return render(request, "home.html", context)
+        elif 'receptionist_form_signin' in request.POST:
 
-        if (user is not None):
-            login(request, user)
-            return render(request,"Doctor/doctor_index.html")
-
-        else:
-            context = {"error":"Invalid username or password"}
-            return render(request, 'home.html', context)
-
+            if (user is not None):
+                if (user.first_name[-1]=='2'):
+                    login(request, user)
+                    return HttpResponse("<h1>Receptionist</h1>")
+                else:
+                    context = {"error": "Invalid role"}
+                    messages.info(request, 'Invalid role!')
+                    return render(request, "home.html", context)
+            else:
+                return render(request, "home.html", context)
+            
     return render(request, "home.html")
+
+            
 
 def doctor_index(request):
     return render(request,"Doctor/doctor_index.html")

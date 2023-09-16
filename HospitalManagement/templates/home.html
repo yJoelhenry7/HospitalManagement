@@ -8,11 +8,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
+	{% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	
 <h1 class="black">WELCOME !</h1>
 <h2 class="black">Doctor & Receptionist Login</h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#" method="post">
+		<form action="#" method="post" id="Receptionist">
 			{% csrf_token %}
 			<h1 style="color:black;">Receptionist Sign In</h1>
 			{% if error %}
@@ -22,11 +30,12 @@
 			{% endif %}
 			<input type="text" placeholder="Username" name="userName" class="userName"/>
 			<input type="password" placeholder="Password" name="password" class="password"/>
-			<button>Sign In</button>
+			<p name = "role">Receptionist</p>
+			<button name="receptionist_form_signin">Sign In</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="" method="post">
+		<form action="" method="post" id="Doctor">
 			{% csrf_token %}
 			<h1 style="color: black;">Doctor's Sign In</h1>
 			{% if error %}
@@ -37,7 +46,7 @@
 			<input type="text" placeholder="Username" name="userName" class="userName" required/>
 			<input type="password" placeholder="Password" name="password" class="password" required/>
 		
-			<button><input type="submit" value="Sign in" style="margin: 0px; padding: 0px; background-color: transparent;"></button>
+			<button name="doctor_form_signin">Sign In</button>
 		</form>
 	</div>
 	<div class="overlay-container">
