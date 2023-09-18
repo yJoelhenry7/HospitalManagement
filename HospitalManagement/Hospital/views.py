@@ -2,12 +2,16 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import *
 # Create your views here.
 
 
 def signin(request):
+
+    if (request.user.is_authenticated and len(request.user.first_name)>0 and request.user.first_name[-1] not in ['1','2']):
+        return redirect('/presidentIndex/')
+    
 
     if (request.method=="POST"):
         username = request.POST['userName']
@@ -15,7 +19,7 @@ def signin(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if (user is not None):
+        if (user is not None and len(user.first_name)>0 and user.first_name[-1] not in ['1','2']):
             
             login(request, user)
             return redirect('/presidentIndex')
@@ -27,6 +31,10 @@ def signin(request):
 
 
     return render(request, 'President/president_login.html')
+
+def signout(request):
+    logout(request)
+    return redirect('/presidentLogin/')
 
 
 def index(request):
@@ -45,10 +53,6 @@ def president_patient_addition(request):
     return render(request,'President/president_patient_addition.html')
 
 def president_staff_addition(request):
-    roles = {
-        'Doctor': 1,
-        'Receptionist': 2
-    }
     
     if (request.method == "POST"):
         firstName = request.POST['firstName']
@@ -74,7 +78,11 @@ def president_staff_addition(request):
         staff.save()
         
         user = User.objects.create_user(userName, email, password)
-        user.first_name = firstName+str(roles.get(role))
+        if (role=='Receptionist'):
+            en = '2'
+        else:
+            en = '1'
+        user.first_name = firstName+en
         user.last_name = lastName
 
 
@@ -86,7 +94,24 @@ def president_staff_addition(request):
     return render(request, "President/president_staff_addition.html")
 
 
+def emptyUrl(request):
+    return redirect('/home/')
+
+def error_view(request):
+    return render(request, 'Error/error.html', status=404)
+
+def logout_staff(request):
+    logout(request)
+    return redirect('/home/')
+    
+
+
 def home(request):
+    if (request.user.is_authenticated and len(request.user.first_name)>0):
+        if (request.user.first_name[-1]=='1'):
+            return redirect('/doctorIndex/')
+        elif (request.user.first_name[-1]=='2'):
+            return redirect('/receptionistIndex/')
     if (request.method =='POST'):
         userName = request.POST['userName']
         password = request.POST['password']
@@ -95,10 +120,10 @@ def home(request):
         context = {"error": "Invalid username or password"}
         if 'doctor_form_signin' in request.POST:
 
-            if (user is not None):
+            if (user is not None and len(user.first_name)>0):
                 if (user.first_name[-1]=='1'):
                     login(request, user)
-                    return render(request,"Doctor/doctor_index.html")
+                    return redirect('/doctorIndex/')
                 else:
                     context = {"error": "Invalid role"}
                     messages.info(request, 'Invalid role!')
@@ -110,7 +135,7 @@ def home(request):
             if (user is not None):
                 if (user.first_name[-1]=='2'):
                     login(request, user)
-                    return HttpResponse("<h1>Receptionist</h1>")
+                    return redirect('/receptionistIndex/')
                 else:
                     context = {"error": "Invalid role"}
                     messages.info(request, 'Invalid role!')
@@ -123,4 +148,15 @@ def home(request):
             
 
 def doctor_index(request):
-    return render(request,"Doctor/doctor_index.html")
+    if (request.user.is_authenticated):
+        if (len(request.user.first_name)>0 and request.user.first_name[-1]=='1'):
+            return render(request,"Doctor/doctor_index.html")
+        else:
+            logout(request)
+            return redirect('/home/')
+    
+    return redirect('/home/')
+    
+
+def receptionist_index(request):
+    return render(request, "Receptionist/receptionist_index.html")
