@@ -1,37 +1,50 @@
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctors list</title>
+    <link rel="stylesheet" href="{% static 'css/president_doctor_view.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    
-    <h1>Doctors List</h1>
-    <a href="/presidentStaffAdd" ><button>Add Doctors</button></a>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile Number</th>
-                <th>Aadhar Number</th>
-                <th>City</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for member in staff %}
-            <tr>
-                <td>{{ member.name }}</td>
-                <td>{{ member.email }}</td>
-                <td>{{ member.mobileNumber }}</td>
-                <td>{{ member.aadharNumber }}</td>
-                <td>{{ member.city }}</td>
-                <td>{{ member.role }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
+    <main class="table">
+        <section class="table_header">
+            <h1>Doctors List</h1>
+            <form action="#" method="post">
+                <input type="search" name="" id="">
+                <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i> <strong>Search</strong> </button>
+            </form>
+            <a href="/presidentStaffAdd" ><button class="btn btn-add"><strong>Add Doctors</strong>  <i class="fa fa-stethoscope" aria-hidden="true"></i></button></a>
+        </section>
+        <section class="table_body"> 
+            <table >
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th>Aadhar Number</th>
+                        <th>City</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in staff %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.mobileNumber }}</td>
+                        <td>{{ member.aadharNumber }}</td>
+                        <td>{{ member.city }}</td>
+                        <td>{{ member.role }}</td>
+                        <td><a><button class="btn btn-edit" style="width: 70px;"> <i class="fa fa-edit"></i> Edit</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
