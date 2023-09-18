@@ -8,13 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-	{% if messages %}
-	<ul class="messages">
-		{% for message in messages %}
-		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %}
 	
 <h1 class="black">WELCOME !</h1>
 <h2 class="black">Doctor & Receptionist Login</h2>
@@ -29,8 +22,7 @@
 			<span>Please Enter the Details</span>
 			{% endif %}
 			<input type="text" placeholder="Username" name="userName" class="userName"/>
-			<input type="password" placeholder="Password" name="password" class="password"/>
-			<p name = "role">Receptionist</p>
+			<input type="password" placeholder="Password" name="password" class="password"/>+-+
 			<button name="receptionist_form_signin">Sign In</button>
 		</form>
 	</div>
