@@ -12,24 +12,25 @@
         <img src="{% static 'images/doctor.png' %}" width="400" height="400" style="object-fit: contain;">
     </div>
    <div class="wrapper">
-      <form action="#" method="post">
+        <form action="" method="post">
         {% csrf_token %}
 
-        {% if error %}
-        <p style="color: red;">{{error}}</p>
-        {% endif %}
-          <h1>Hey <span style="color: Red;">Cheif!<span></h1>
-          <h5>Login and Check New Updates</h5>
-          <div class="input-box">
-              <input type="text" name="userName" id="userName" placeholder="Enter your username" required>
-              <i class='bx bxs-user'></i>
-          </div>
-          <div class="input-box">
-               <input type="password" name="password" id="password" placeholder="Enter your password" required>
-               <i class='bx bxs-lock-alt' ></i>
-          </div>
-          <button class="btn" type="submit">Login</button>
-      </form>
+        
+            <h1>Hey <span style="color: Red;">Cheif!<span></h1>
+            <h5>Login and Check New Updates</h5>
+            {% if error %}
+                <h5 style="color: red;">{{error}}</h5>
+            {% endif %}
+            <div class="input-box">
+                <input type="text" name="userName" id="userName" placeholder="Enter your username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <button class="btn" type="submit">Login</button>
+        </form>
    </div>
 
 </body>
