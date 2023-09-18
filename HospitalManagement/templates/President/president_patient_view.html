@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
+    <a href="/presidentLogout"><button>Logout</button></a>
     <main class="table">
         <section class="table_header">
             <h1>Patient List</h1>
-            <form action="#" method="post">
+            <form action="" method="post">
+                {% csrf_token %}
                 <input type="search" name="" id="">
                 <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i> <strong>Search</strong> </button>
             </form>
