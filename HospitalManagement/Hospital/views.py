@@ -43,10 +43,15 @@ def index(request):
 
 def president_doctor_view(request):
     staff = Staff.objects.all()
+    if (request.method=='POST'):
+        staff = Staff.objects.annotate().filter(name__icontains=request.POST['searchDoctor'])
     return render(request, 'President/president_doctor_view.html',{'staff': staff})
 
 def president_patient_view(request):
-    return render(request, 'President/president_patient_view.html')
+    patients = Patient.objects.all()
+    if (request.method=='POST'):
+        patients = Patient.objects.annotate().filter(name__icontains=request.POST['searchPatient'])
+    return render(request, 'President/president_patient_view.html', {'patients': patients})
 
 def president_patient_addition(request):
     
@@ -112,6 +117,8 @@ def home(request):
             return redirect('/doctorIndex/')
         elif (request.user.first_name[-1]=='2'):
             return redirect('/receptionistIndex/')
+        else:
+            logout(request)
     if (request.method =='POST'):
         userName = request.POST['userName']
         password = request.POST['password']
@@ -154,7 +161,7 @@ def doctor_index(request):
         else:
             logout(request)
             return redirect('/home/')
-    
+    logout(request)
     return redirect('/home/')
     
 

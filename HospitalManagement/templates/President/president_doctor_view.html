@@ -12,8 +12,9 @@
     <main class="table">
         <section class="table_header">
             <h1>Doctors List</h1>
-            <form action="#" method="post">
-                <input type="search" name="" id="">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="search" name="searchDoctor" id="">
                 <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i> <strong>Search</strong> </button>
             </form>
             <a href="/presidentStaffAdd" ><button class="btn btn-add"><strong>Add Doctors</strong>  <i class="fa fa-stethoscope" aria-hidden="true"></i></button></a>
