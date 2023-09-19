@@ -165,10 +165,42 @@ def doctor_index(request):
     
 
 def receptionist_index(request):
-    return render(request, "Receptionist/receptionist_index.html")
+    patients = Patient.objects.all()
+    return render(request, "Receptionist/receptionist_index.html",{'patients': patients})
 
 def receptionist_patient_addition(request):
+    if (request.method == "POST"):
+        firstName = request.POST['firstName']
+        lastName = request.POST['lastName']
+        email = request.POST['email']
+        mobilenumber = request.POST['mobileNumber']
+        aadharnumber = request.POST['aadharNumber']
+        city = request.POST['city']
+        symptoms = request.POST['symptoms']
+        password = aadharnumber[:4]+mobilenumber[-4:]
+        userName = lastName+aadharnumber[:2]+mobilenumber[-2:]
+
+
+        patient = Patient(
+                name=(firstName+" "+lastName),
+                firstName=(firstName), 
+                lastName=(lastName), 
+                email = email,
+                mobileNumber=mobilenumber, 
+                aadharNumber=aadharnumber,
+                city = city,
+                symptoms = symptoms
+                
+            )
+        patient.save()
+
+        user = User.objects.create_user(userName,email,password)
+
+        patients = Patient.objects.all()
+        return render(request,"Receptionist/receptionist_index.html",{'patients': patients})
+    
     return render(request, "Receptionist/receptionist_patient_addition.html")
+
 
 def receptionist_existing_patient(request):
     return render(request, "Receptionist/receptionist_existing_patient.html")

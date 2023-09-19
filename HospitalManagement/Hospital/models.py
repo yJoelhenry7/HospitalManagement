@@ -10,6 +10,7 @@ class Patient(models.Model):
     mobileNumber = models.CharField('Mobile Number', max_length=15)
     aadharNumber = models.CharField('Aadhar Number', max_length=15)
     city = models.CharField('City', max_length=50)
+    symptoms = models.CharField('Symptoms',max_length=100,default="cold")
 
 class Staff(models.Model):
     name = models.CharField('Doctor Name', max_length=100)
