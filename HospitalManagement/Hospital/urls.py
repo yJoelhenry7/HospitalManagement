@@ -16,5 +16,7 @@ urlpatterns = [
     path('presidentPatientAdd/',president_patient_addition),
     path('logoutStaff', logout_staff),
     path('doctorIndex/', doctor_index),
-    path('receptionistIndex/', receptionist_index)
+    path('receptionistIndex/', receptionist_index),
+    path('receptionistPatientAddition/', receptionist_patient_addition, name="Patient Addition"),
+    path('receptionistExistingPatient/', receptionist_existing_patient),
 ]

@@ -108,7 +108,6 @@ def error_view(request):
 def logout_staff(request):
     logout(request)
     return redirect('/home/')
-    
 
 
 def home(request):
@@ -167,3 +166,9 @@ def doctor_index(request):
 
 def receptionist_index(request):
     return render(request, "Receptionist/receptionist_index.html")
+
+def receptionist_patient_addition(request):
+    return render(request, "Receptionist/receptionist_patient_addition.html")
+
+def receptionist_existing_patient(request):
+    return render(request, "Receptionist/receptionist_existing_patient.html")
