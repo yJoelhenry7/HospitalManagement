@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from datetime import date
 from .models import *
 # Create your views here.
 
@@ -52,10 +53,6 @@ def president_patient_view(request):
     if (request.method=='POST'):
         patients = Patient.objects.annotate().filter(name__icontains=request.POST['searchPatient'])
     return render(request, 'President/president_patient_view.html', {'patients': patients})
-
-def president_patient_addition(request):
-    
-    return render(request,'President/president_patient_addition.html')
 
 def president_staff_addition(request):
     
@@ -165,10 +162,56 @@ def doctor_index(request):
     
 
 def receptionist_index(request):
-    return render(request, "Receptionist/receptionist_index.html")
+    application = applications.objects.all()
+    return render(request, "Receptionist/receptionist_index.html", {'application': application})
 
 def receptionist_patient_addition(request):
+    if (request.method=='POST'):
+        firstName = request.POST['firstName']
+        lastName = request.POST['lastName']
+        dateOfBirth = request.POST['date_of_birth']
+        gender = request.POST['gender']
+        email = request.POST['email']
+        mobilenumber = request.POST['mobileNumber']
+        aadharnumber = request.POST['aadharNumber']
+        city = request.POST['city']
+
+
+        patient = Patient(
+                name=(firstName+" "+lastName),
+                firstName=(firstName), 
+                lastName=(lastName), 
+                dateOfBirth = dateOfBirth,
+                gender = gender,
+                email = email,
+                mobileNumber=mobilenumber, 
+                aadharNumber=aadharnumber,
+                city = city, 
+            )
+        patient.save()
+
+
+        return redirect('existing', patient_id = patient.id)
+    
     return render(request, "Receptionist/receptionist_patient_addition.html")
 
-def receptionist_existing_patient(request):
+def receptionist_existing_patient(request, patient_id):
+    if (request.method=='POST'):
+        dateOfRegistration = date.today()
+        symptoms = request.POST['symptoms']
+
+        visit = visits(
+            patientId=Patient.objects.get(id=patient_id),
+            dateOfRegistration=dateOfRegistration,
+            symptoms=symptoms
+        )
+
+        visit.save()
+
+        application = applications(
+            visit= visit
+        )
+
+        application.save()
+        return redirect('Receptionist Index')
     return render(request, "Receptionist/receptionist_existing_patient.html")

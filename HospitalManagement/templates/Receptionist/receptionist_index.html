@@ -1,5 +1,27 @@
 {% extends 'Doctor/doctor_index.html/' %}
 {% block content %}
     <h1>Receptionist</h1>
-     <a href=""> <button> Add Doctor</button></a>
+     <a href="/receptionistPatientAddition"> <button> Add Patient</button></a>
+
+     <table>
+        <thead>
+            <th>Application id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Mobile Number</th>
+            <th>Aadhar Number</th>
+        </thead>
+
+        {% for person in application %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{person.visit.patientId.name }}</td>
+                <td>{{ person.visit.patientId.gender }}</td>
+                <td>{{ person.visit.patientId.dateOfBirth }}</td>
+                <td>{{ person.visit.patientId.mobileNumber }}</td>
+                <td>{{ person.visit.patientId.aadharNumber }}</td>
+            </tr>
+        {% endfor %}
+     </table>
 {% endblock %}
