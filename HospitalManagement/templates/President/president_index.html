@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>President</title>
     <link rel="stylesheet" href="{% static 'css/president_index.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
     <img src="{% static 'images/doctor2.png' %}" alt="" class="doctor-image"/>
     <div>
-        <h1 style="display: flex; margin-left: 10%;margin-top: 20%;">Welcome &nbsp; <span style="color: red;"> Cheif!</span></h1>
+      <div style="display: flex;align-items: center;gap:5px; margin-left: 10%;margin-top: 20%;">
+        <a href="/presidentLogout"><button style="border-radius: 50px; padding: 4px;background-color: white;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button></a>
+        <h1 >Welcome &nbsp; <span style="color: red;"> Cheif!</span></h1>  
+      </div>
         <h3 style="margin-bottom: 30%; margin-left: 10%; ">what do you want to check Today ?</h3>
         <div class="container">
             <a href="/presidentDoctorView"> 
@@ -23,7 +27,6 @@
             </div>
         </a>
         </div>
-        <a href="/presidentLogout"><button>Logout</button></a>
     </div>
     
   </body>
