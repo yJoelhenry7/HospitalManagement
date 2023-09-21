@@ -1,15 +1,76 @@
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doctor Index</title>
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
-</head>
-<body>
-    <a href="/logoutStaff"><button>Logout</button></a>
+    <link rel="stylesheet" href="{% static 'css/utils.css' %}" />
+  </head>
+  <body>
+    <!-- <a href="/logoutStaff"><button>Logout</button></a> -->
     {% block content %}
     <h1>Doctor Index</h1>
-    {% endblock %}
-</body>
+    <h3>Search Patient</h3>
+    <form method="post" action="">
+      {% csrf_token %}
+      <input
+        type="text"
+        id="application_id"
+        name="application_id"
+        placeholder="Enter Application ID"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+    <h1>Patient Details</h1>
+    <span>{{error}}</span>
+    <table>
+      <tr>
+        <td>{{ person.id }}</td>
+        <td>{{ person.patientId.name }}</td>
+        <td>{{ person.patientId.gender }}</td>
+        <td>{{ person.patientId.dateOfBirth }}</td>
+        <td>{{ person.patientId.mobileNumber }}</td>
+        <td>{{ person.patientId.symptoms }}</td>
+        <td>{{ person.patientId.diagnosis }}</td>
+        <td>{{ person.patientId.prescription }}</td>
+      </tr>
+    </table>
+    
+    {% if error %}
+    <p></p>
+    {%else%}
+    <table>
+      <tr>
+        <td>Current Symptoms : {{person.symptoms}}</td>
+      </tr>
+    </table>
+    <form method="post" action="{% url 'review_patient' %}">
+      {% csrf_token %}
+      <input type="hidden" id="patientid" name="patientid" value="{{ app_id }}" />
+      <input
+        type="hidden"
+        id="symptoms"
+        name="symptoms"
+        placeholder="Enter symptoms"
+        value="{{ person.symptoms }}"
+      />
+      <input
+        type="text"
+        id="diagnosis"
+        name="diagnosis"
+        placeholder="Enter diagnosis"
+        required
+      />
+      <input
+        type="text"
+        id="prescription"
+        name="prescription"
+        placeholder="Enter prescription"
+        required
+      />
+      <button type="submit">Add</button>
+    </form>
+    {% endif %} {% endblock %}
+  </body>
 </html>

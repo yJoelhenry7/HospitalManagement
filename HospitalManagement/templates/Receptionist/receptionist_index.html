@@ -11,6 +11,7 @@
             <th>Date of Birth</th>
             <th>Mobile Number</th>
             <th>Aadhar Number</th>
+            
         </thead>
 
         {% for person in application %}
@@ -21,6 +22,7 @@
                 <td>{{ person.visit.patientId.dateOfBirth }}</td>
                 <td>{{ person.visit.patientId.mobileNumber }}</td>
                 <td>{{ person.visit.patientId.aadharNumber }}</td>
+                
             </tr>
         {% endfor %}
      </table>

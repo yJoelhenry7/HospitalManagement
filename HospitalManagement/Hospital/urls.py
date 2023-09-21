@@ -14,8 +14,10 @@ urlpatterns = [
     path('presidentStaffAdd/',president_staff_addition),
     path('presidentPatientView/', president_patient_view),
     path('logoutStaff', logout_staff),
-    path('doctorIndex/', doctor_index),
+    path('doctorIndex/', doctor_index ,name = "doctor_index"),
     path('receptionistIndex/', receptionist_index, name='Receptionist Index'),
     path('receptionistPatientAddition/', receptionist_patient_addition, name="Patient Addition"),
     path('receptionistExistingPatient/<int:patient_id>', receptionist_existing_patient, name='existing'),
+    path('review_patient/', review_patient, name='review_patient')
+
 ]

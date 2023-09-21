@@ -1,18 +1,22 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Existing Patient</title>
-</head>
-<body>
-    <form action="" method="post">
-        {% csrf_token %}
-
-        <label for="">Symptoms:</label>&nbsp;&nbsp;
-        <input type="text" name="symptoms"><br><br>
-
-        <button>Submit</button>
-
-    </form>
-</body>
-</html>
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Existing Patient</title>
+    </head>
+    <body>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>{{ error }} </p>
+            <label for="application_id">Application_ID</label>&nbsp;&nbsp;
+            <input type="text" id="application_id" name="application_id" placeholder="Enter Application ID" required><br><br>
+            <label for="symptoms">Symptoms:</label>&emsp;&emsp;
+            <input type="text" name="symptoms" id="symptoms" placeholder="Enter Symptoms" ><br><br>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+    </html>
+    
+    

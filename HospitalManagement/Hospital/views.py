@@ -151,15 +151,54 @@ def home(request):
             
 
 def doctor_index(request):
+    error=" "
     if (request.user.is_authenticated):
         if (len(request.user.first_name)>0 and request.user.first_name[-1]=='1'):
-            return render(request,"Doctor/doctor_index.html")
+            
+            if (request.method=='POST'):
+                pid=request.POST['application_id']
+                visit1 = visits.objects.filter(patientId=pid).first()
+                if visit1==None:
+                    application = applications.objects.all()
+                    error="No data Matched"
+                    return render(request,'Doctor/doctor_index.html',{'person':application, "error":error,"app_id":pid})
+                else:
+                    error=""
+                    return render(request,'Doctor/doctor_index.html',{'person':visit1, "error":error,"app_id":pid})
+            
         else:
             logout(request)
             return redirect('/home/')
-    logout(request)
-    return redirect('/home/')
+
+    application = applications.objects.all()
+    return render(request, "Doctor/doctor_index.html", {'person': application, "error":error})
     
+
+
+def review_patient(request):
+    error = " "
+    if(request.method=='POST'):
+        pid=request.POST['patientid']
+        symptoms = request.POST['symptoms']
+        diagnosis =  request.POST['diagnosis']
+        prescription  =   request.POST['prescription']
+        dateOfRegistration = date.today()
+        visit1 = visits.objects.filter(patientId=pid).first()
+        if visit1==None:
+            application = applications.objects.all()
+            error="No data Matched"
+            return render(request, "Receptionist/receptionist_existing_patient.html",{'error':error})
+        else:
+            Patient.objects.filter(id=pid).update(symptoms=symptoms)
+            Patient.objects.filter(id=pid).update(diagnosis=diagnosis)
+            Patient.objects.filter(id=pid).update(prescription=prescription)
+            return redirect('doctor_index')
+
+    return redirect('doctor_index') 
+
+    
+
+
 
 def receptionist_index(request):
     application = applications.objects.all()
@@ -190,28 +229,34 @@ def receptionist_patient_addition(request):
             )
         patient.save()
 
-
-        return redirect('existing', patient_id = patient.id)
+        return redirect('existing', patient_id = patient.application_id)
     
     return render(request, "Receptionist/receptionist_patient_addition.html")
 
 def receptionist_existing_patient(request, patient_id):
+    error = " "
     if (request.method=='POST'):
-        dateOfRegistration = date.today()
+        a  = request.POST["application_id"]
         symptoms = request.POST['symptoms']
 
-        visit = visits(
-            patientId=Patient.objects.get(id=patient_id),
-            dateOfRegistration=dateOfRegistration,
-            symptoms=symptoms
-        )
 
-        visit.save()
+        visit1 = visits.objects.filter(patientId=a).first()
+        if visit1==None:
+            error = "Id doesn't exist"
+            return render(request, "Receptionist/receptionist_index.html",{'error':error})
+        else:
+            
+            visits.objects.filter(patientId=a).update(dateOfRegistration = date.today())
+            visits.objects.filter(patientId=a).update(symptoms = symptoms)
+            
+            return redirect('Receptionist Index')
+    else:
+        return render(request, "Receptionist/receptionist_existing_patient.html",{'error':error})
 
-        application = applications(
-            visit= visit
-        )
 
-        application.save()
-        return redirect('Receptionist Index')
-    return render(request, "Receptionist/receptionist_existing_patient.html")
+
+
+        
+    
+
+

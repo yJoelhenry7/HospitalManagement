@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import date
-
 # Create your models here.
 
 class Patient(models.Model):
@@ -13,10 +12,12 @@ class Patient(models.Model):
     mobileNumber = models.CharField('Mobile Number', max_length=15)
     aadharNumber = models.CharField('Aadhar Number', max_length=15)
     city = models.CharField('City', max_length=50)
-    symptoms = models.CharField('Symptoms',max_length=100,default="cold")
+    symptoms = models.CharField('Symptoms',max_length=100,default="fhkef")
+    diagnosis = models.CharField('Diagnosis', max_length=100,default="None")
+    prescription = models.CharField('Prescription', max_length=100,default="None")
 
 class visits(models.Model):
-    patientId = models.ForeignKey(Patient, on_delete=models.CASCADE,)
+    patientId = models.ForeignKey(Patient, on_delete=models.CASCADE)
     dateOfRegistration = models.DateField()
     symptoms = models.CharField('Symptoms', max_length=100)
     diagnosis = models.CharField('Diagnosis', max_length=100)
