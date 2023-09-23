@@ -18,6 +18,7 @@ urlpatterns = [
     path('receptionistIndex/', receptionist_index, name='Receptionist Index'),
     path('receptionistPatientAddition/', receptionist_patient_addition, name="Patient Addition"),
     path('receptionistExistingPatient/<int:patient_id>', receptionist_existing_patient, name='existing'),
-    path('review_patient/', review_patient, name='review_patient')
+    path('review_patient/', review_patient, name='review_patient'),
+    path('new_user/<int:patient_id>',new_user, name = 'new_user')
 
 ]

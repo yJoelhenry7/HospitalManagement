@@ -27,13 +27,13 @@
     <table>
       <tr>
         <td>{{ person.id }}</td>
-        <td>{{ person.patientId.name }}</td>
-        <td>{{ person.patientId.gender }}</td>
-        <td>{{ person.patientId.dateOfBirth }}</td>
-        <td>{{ person.patientId.mobileNumber }}</td>
-        <td>{{ person.patientId.symptoms }}</td>
-        <td>{{ person.patientId.diagnosis }}</td>
-        <td>{{ person.patientId.prescription }}</td>
+        <td>{{ person.name }}</td>
+        <td>{{ person.gender }}</td>
+        <td>{{ person.dateOfBirth }}</td>
+        <td>{{ person.mobileNumber }}</td>
+        <td>{{ person.symptoms }}</td>
+        <td>{{ person.diagnosis }}</td>
+        <td>{{ person.prescription }}</td>
       </tr>
     </table>
     
@@ -42,7 +42,7 @@
     {%else%}
     <table>
       <tr>
-        <td>Current Symptoms : {{person.symptoms}}</td>
+        <td>Current Symptoms : {{visit2.symptoms}}</td>
       </tr>
     </table>
     <form method="post" action="{% url 'review_patient' %}">
@@ -53,7 +53,7 @@
         id="symptoms"
         name="symptoms"
         placeholder="Enter symptoms"
-        value="{{ person.symptoms }}"
+        value="{{ visit2.symptoms }}"
       />
       <input
         type="text"
@@ -71,6 +71,7 @@
       />
       <button type="submit">Add</button>
     </form>
-    {% endif %} {% endblock %}
+    {% endif %} 
+    {% endblock %}
   </body>
 </html>
