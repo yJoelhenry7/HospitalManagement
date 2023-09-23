@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/utils.css' %}" />
   </head>
   <body>
-    <!-- <a href="/logoutStaff"><button>Logout</button></a> -->
+    <a href="/logoutStaff"><button>Logout</button></a>
     {% block content %}
     <h1>Doctor Index</h1>
     <h3>Search Patient</h3>
@@ -22,21 +22,37 @@
       />
       <button type="submit">Search</button>
     </form>
+    {% if error %} {% else %}
     <h1>Patient Details</h1>
+    {% endif %}
     <span>{{error}}</span>
+
     <table>
+      {% if error %} {% else %}
       <tr>
-        <td>{{ person.id }}</td>
-        <td>{{ person.name }}</td>
-        <td>{{ person.gender }}</td>
-        <td>{{ person.dateOfBirth }}</td>
-        <td>{{ person.mobileNumber }}</td>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>DateOfBirth</th>
+        <th>Mobile Number</th>
+        <th>Symptoms</th>
+        <th>Diagnosis</th>
+        <th>Prescription</th>
+      </tr>
+      {% endif %} {% for person in person1 %}
+      <tr>
+        <td>{{ person.patientId.id }}</td>
+        <td>{{ person.patientId.name }}</td>
+        <td>{{ person.patientId.gender }}</td>
+        <td>{{ person.patientId.dateOfBirth }}</td>
+        <td>{{ person.patientId.mobileNumber }}</td>
         <td>{{ person.symptoms }}</td>
         <td>{{ person.diagnosis }}</td>
         <td>{{ person.prescription }}</td>
       </tr>
+      {%endfor%}
     </table>
-    
+
     {% if error %}
     <p></p>
     {%else%}
@@ -47,7 +63,12 @@
     </table>
     <form method="post" action="{% url 'review_patient' %}">
       {% csrf_token %}
-      <input type="hidden" id="patientid" name="patientid" value="{{ app_id }}" />
+      <input
+        type="hidden"
+        id="patientid"
+        name="patientid"
+        value="{{ app_id }}"
+      />
       <input
         type="hidden"
         id="symptoms"
@@ -71,7 +92,6 @@
       />
       <button type="submit">Add</button>
     </form>
-    {% endif %} 
-    {% endblock %}
+    {% endif %} {% endblock %}
   </body>
 </html>
