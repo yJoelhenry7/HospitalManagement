@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/utils.css' %}" />
   </head>
   <body>
-    <a href="/logoutStaff"><button>Logout</button></a>
+    <!-- <a href="/logoutStaff"><button>Logout</button></a> -->
     {% block content %}
     <h1>Doctor Index</h1>
     <h3>Search Patient</h3>
@@ -39,7 +39,18 @@
         <th>Diagnosis</th>
         <th>Prescription</th>
       </tr>
-      {% endif %} {% for person in person1 %}
+      {% endif %} {% if count == 1 %}
+      <tr>
+        <td>{{ person1.0.patientId.id }}</td>
+        <td>{{ person1.0.patientId.name }}</td>
+        <td>{{ person1.0.patientId.gender }}</td>
+        <td>{{ person1.0.patientId.dateOfBirth }}</td>
+        <td>{{ person1.0.patientId.mobileNumber }}</td>
+        <td>{{ person1.0.symptoms }}</td>
+        <td>{{ person1.0.diagnosis }}</td>
+        <td>{{ person1.0.prescription }}</td>
+      </tr>
+      {% else %} {% for person in person1 %} {% if person.diagnosis %}
       <tr>
         <td>{{ person.patientId.id }}</td>
         <td>{{ person.patientId.name }}</td>
@@ -50,7 +61,7 @@
         <td>{{ person.diagnosis }}</td>
         <td>{{ person.prescription }}</td>
       </tr>
-      {%endfor%}
+      {% endif %} {% endfor %} {% endif %}
     </table>
 
     {% if error %}

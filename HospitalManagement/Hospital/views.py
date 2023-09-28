@@ -173,7 +173,8 @@ def doctor_index(request):
                     error = ""
                     visit1 = visits.objects.filter(patientId = pid).all()
                     visit2 = Patient.objects.filter(id = pid).first()
-                    return render(request, 'Doctor/doctor_index.html', {'person1': visit1, "error": error, "app_id": pid, "visit2": visit2})
+                    count = visits.objects.filter(patientId = pid).count()
+                    return render(request, 'Doctor/doctor_index.html', {'person1': visit1, "error": error, "app_id": pid, "visit2": visit2,"count":count})
 
         else:
             logout(request)
