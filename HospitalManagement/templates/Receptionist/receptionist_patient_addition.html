@@ -1,42 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Addition</title>
+    <link rel="stylesheet" href="{% static 'css/receptionist_add.css' %}" >
 </head>
 <body>
     {{error}}
-    <form action="" method="post">
-        {% csrf_token %}
-        
-        <label for="">First Name: </label>&nbsp;&nbsp;
-        <input type="text" name="firstName" placeholder="Enter first name"><br><br>
+    <div class="container">
 
-        <label for="">Last Name: </label>&nbsp;&nbsp;
-        <input type="text" name="lastName" placeholder="Enter last name"><br><br>
-
-        <label for="">Date of Birth: </label>&nbsp;&nbsp;
-        <input type="date" name="date_of_birth" placeholder="Enter Date of Birth"><br><br>
-
-        <label for="">Gender: </label>&nbsp;&nbsp;
-        <input type="text" name="gender" placeholder="Enter Gender"><br><br>
-
-        <label for="">Email:</label>&nbsp;&nbsp;
-        <input type="email" name="email" id="email" placeholder="Enter your email" required><br><br>
-        
-        <label for="">Number:</label>&nbsp;&nbsp;
-        <input type="number" name="mobileNumber" id="mobileNumber" placeholder="Enter your mobile number" required><br><br>
-
-        <label for="">Aadhar:</label>&nbsp;&nbsp;
-        <input type="number" name="aadharNumber" id="aadharNumber" placeholder="Enter your aadhar number" required><br><br>
-
-        <label for="">City: </label>&nbsp;&nbsp;
-        <input type="text" name="city" placeholder="Enter City"><br><br>
-
-
-        <button>Submit</button>
-        
-    </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            
+            <label for="">First Name: </label>&nbsp;&nbsp;
+            <input type="text" name="firstName" placeholder="Enter first name"><br><br>
+    
+            <label for="">Last Name: </label>&nbsp;&nbsp;
+            <input type="text" name="lastName" placeholder="Enter last name"><br><br>
+    
+            <label for="">Date of Birth: </label>&nbsp;&nbsp;
+            <input type="date" name="date_of_birth" placeholder="Enter Date of Birth"><br><br>
+    
+            <label for="">Gender: </label>&nbsp;&nbsp;
+            <input type="text" name="gender" placeholder="Enter Gender"><br><br>
+    
+            <label for="">Email:</label>&nbsp;&nbsp;
+            <input type="email" name="email" id="email" placeholder="Enter your email" required><br><br>
+            
+            <label for="">Number:</label>&nbsp;&nbsp;
+            <input type="number" name="mobileNumber" id="mobileNumber" placeholder="Enter your mobile number" required><br><br>
+    
+            <label for="">Aadhar:</label>&nbsp;&nbsp;
+            <input type="number" name="aadharNumber" id="aadharNumber" placeholder="Enter your aadhar number" required><br><br>
+    
+            <label for="">City: </label>&nbsp;&nbsp;
+            <input type="text" name="city" placeholder="Enter City"><br><br>
+    
+    
+            <button type="submit" class="submit_btn">Submit</button>
+            
+        </form>
+    </div>
 </body>
 </html>

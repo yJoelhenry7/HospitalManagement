@@ -5,104 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doctor Index</title>
     <link rel="stylesheet" href="{% static 'css/utils.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/president_doctor_patient.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
-    <a href="/logoutStaff"><button>Logout</button></a>
     {% block content %}
-    <h1>Doctor Index</h1>
-    <h3>Search Patient</h3>
-    <form method="post" action="">
-      {% csrf_token %}
-      <input
-        type="text"
-        id="application_id"
-        name="application_id"
-        placeholder="Enter Application ID"
-        required
-      />
-      <button type="submit">Search</button>
-    </form>
-    {% if error %} {% else %}
-    <h1>Patient Details</h1>
-    {% endif %}
-    <span>{{error}}</span>
+    <main class="table">
+      <section class="table_header">
+          <h1>Patient Details</h1>
+          <form method="post" action="">
+              {% csrf_token %}
+              <input type="search" id="application_id"  name="application_id"  placeholder="Enter Application ID"  required>
+              <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i> <strong>Search</strong> </button>
+          </form>
+          <a href="/logoutStaff"><button class="btn btn-search"><strong>Logout</strong></button></a>
+      </section>
+      {% if error %}
+      <section class="flex">
+        <h1 >Please Search For the Patient</h1>
+        <i class="fa fa-search" aria-hidden="true" style="font-size: 300px;"></i>
+      </section>
+      {% else %}
+      <section class="table_body"> 
+          <table >
+              <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>DateOfBirth</th>
+                    <th>Mobile Number</th>
+                    <th>Symptoms</th>
+                    <th>Diagnosis</th>
+                    <th>Prescription</th>
+                  </tr>
+              </thead>
+            {% endif %}
+            <tbody>
+              {% if count == 1 %}
+              <tr>
+                <td>{{ person1.0.patientId.id }}</td>
+                <td>{{ person1.0.patientId.name }}</td>
+                <td>{{ person1.0.patientId.gender }}</td>
+                <td>{{ person1.0.patientId.dateOfBirth }}</td>
+                <td>{{ person1.0.patientId.mobileNumber }}</td>
+                <td>{{ person1.0.symptoms }}</td>
+                <td>{{ person1.0.diagnosis }}</td>
+                <td>{{ person1.0.prescription }}</td>
+              </tr>
+              {% else %}
+              {% for person in person1 %} 
+              {% if person.diagnosis %}
+              <tr>
+                <td>{{ person.patientId.id }}</td>
+                <td>{{ person.patientId.name }}</td>
+                <td>{{ person.patientId.gender }}</td>
+                <td>{{ person.patientId.dateOfBirth }}</td>
+                <td>{{ person.patientId.mobileNumber }}</td>
+                <td>{{ person.symptoms }}</td>
+                <td>{{ person.diagnosis }}</td>
+                <td>{{ person.prescription }}</td>
+              </tr>
+              {% endif %}
+              {% endfor %} 
+            </tbody>
+          </table>
+        </section>
+      {% if not error %}
+      <section class="additional_data_patient">
+        <form method="post" action="{% url 'review_patient' %}">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="patientid"
+            name="patientid"
+            value="{{ app_id }}"
+          />
+          <input
+            type="hidden"
+            id="symptoms"
+            name="symptoms"
+            placeholder="Enter symptoms"
+            value="{{ visit2.symptoms }}"
+          />
+          <input
+            type="text"
+            id="diagnosis"
+            name="diagnosis"
+            placeholder="Enter diagnosis"
+            required
+          />
+          <input
+            type="text"
+            id="prescription"
+            name="prescription"
+            placeholder="Enter prescription"
+            required
+          />
+          <button type="submit" class="btn-add-patient btn">Add</button>
+        </form>
+      </section>
+      {% endif %}
+  </main>
+  {% endif %}
+  {% endblock %}
 
-    <table>
-      {% if error %} {% else %}
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>DateOfBirth</th>
-        <th>Mobile Number</th>
-        <th>Symptoms</th>
-        <th>Diagnosis</th>
-        <th>Prescription</th>
-      </tr>
-      {% endif %} {% if count == 1 %}
-      <tr>
-        <td>{{ person1.0.patientId.id }}</td>
-        <td>{{ person1.0.patientId.name }}</td>
-        <td>{{ person1.0.patientId.gender }}</td>
-        <td>{{ person1.0.patientId.dateOfBirth }}</td>
-        <td>{{ person1.0.patientId.mobileNumber }}</td>
-        <td>{{ person1.0.symptoms }}</td>
-        <td>{{ person1.0.diagnosis }}</td>
-        <td>{{ person1.0.prescription }}</td>
-      </tr>
-      {% else %} {% for person in person1 %} {% if person.diagnosis %}
-      <tr>
-        <td>{{ person.patientId.id }}</td>
-        <td>{{ person.patientId.name }}</td>
-        <td>{{ person.patientId.gender }}</td>
-        <td>{{ person.patientId.dateOfBirth }}</td>
-        <td>{{ person.patientId.mobileNumber }}</td>
-        <td>{{ person.symptoms }}</td>
-        <td>{{ person.diagnosis }}</td>
-        <td>{{ person.prescription }}</td>
-      </tr>
-      {% endif %} {% endfor %} {% endif %}
-    </table>
-
-    {% if error %}
-    <p></p>
-    {%else%}
-    <table>
-      <tr>
-        <td>Current Symptoms : {{visit2.symptoms}}</td>
-      </tr>
-    </table>
-    <form method="post" action="{% url 'review_patient' %}">
-      {% csrf_token %}
-      <input
-        type="hidden"
-        id="patientid"
-        name="patientid"
-        value="{{ app_id }}"
-      />
-      <input
-        type="hidden"
-        id="symptoms"
-        name="symptoms"
-        placeholder="Enter symptoms"
-        value="{{ visit2.symptoms }}"
-      />
-      <input
-        type="text"
-        id="diagnosis"
-        name="diagnosis"
-        placeholder="Enter diagnosis"
-        required
-      />
-      <input
-        type="text"
-        id="prescription"
-        name="prescription"
-        placeholder="Enter prescription"
-        required
-      />
-      <button type="submit">Add</button>
-    </form>
-    {% endif %} {% endblock %}
   </body>
 </html>
